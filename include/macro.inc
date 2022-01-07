@@ -1,6 +1,6 @@
 # Assembly Macros
 
-.set gp=64
+#.set gp=64
 
 .set K0BASE, 0x80000000
 .set K1BASE, 0xA0000000

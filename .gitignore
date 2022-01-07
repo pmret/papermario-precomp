@@ -2,3 +2,4 @@
 *.z64
 .vscode
 build/
+tools/n64crc

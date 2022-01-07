@@ -7,14 +7,14 @@ https://github.com/buu342/N64-UNFLoader
 ***************************************************************/
 #include "debug.h"
 #ifndef LIBDRAGON
-    #include <ultra64.h> 
+    #include <common.h> 
     #include <PR/os_internal.h> // Needed for Crash's Linux toolchain
 #else
     #include <libdragon.h>
     #include <stdio.h>
     #include <math.h>
 #endif
-#include <stdarg.h>
+#include <stdlib/stdarg.h>
 // #include <string.h>
 
 
@@ -125,7 +125,7 @@ https://github.com/buu342/N64-UNFLoader
 
     // Function pointers
     #ifndef LIBDRAGON
-        extern int _Printf(void *(*copyfunc)(void *, const char *, size_t), void*, const char*, va_list);
+        //extern int _Printf(void *(*copyfunc)(void *, const char *, size_t), void*, const char*, va_list);
         #if OVERWRITE_OSPRINT
             extern void* __printfunc;
         #endif

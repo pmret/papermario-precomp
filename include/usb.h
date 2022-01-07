@@ -11,7 +11,7 @@
     // Settings
     #define USE_OSRAW          0           // Use if you're doing USB operations without the PI Manager (libultra only)
     #define USE_EPI            1           // Use if you're doing USB operations with the EPI (libultra only)
-    #define CART_HANDLE        carthandle  // Used by EPI functions as the pi handle
+    #define CART_HANDLE        nuPiCartHandle  // Used by EPI functions as the pi handle
     #define DEBUG_ADDRESS_SIZE 8*1024*1024 // Max size of USB I/O. The bigger this value, the more ROM you lose!
    
     // Cart definitions

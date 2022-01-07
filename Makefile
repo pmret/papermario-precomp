@@ -8,12 +8,13 @@ SRC_DIRS := $(shell find $(SRC_DIR)/ -type d)
 BUILD_SRC_DIRS := $(addprefix $(BUILD_DIR)/,$(SRC_DIRS))
 
 # Tools
-CROSS := mips-n64-
+CROSS := mips-linux-gnu-
 
-CC      := $(CROSS)gcc
-AS      := $(CROSS)gcc
+#CC      := $(CROSS)gcc
+CC      := ../papermario/tools/build/cc/gcc/gcc -B ../papermario/tools/build/cc/gcc/
+AS      := $(CROSS)as
 LD      := $(CROSS)ld
-CPP     := $(CROSS)cpp
+CPP     := cpp-11
 OBJCOPY := $(CROSS)objcopy
 MKDIR   := mkdir -p
 RMDIR   := rm -rf
@@ -22,7 +23,7 @@ CKSUM   := tools/n64crc
 # Inputs/outputs
 ELF := $(BUILD_DIR)/$(TARGET).elf
 Z64 := $(ELF:.elf=.z64)
-ELF_IN := elf/$(TARGET).elf
+ELF_IN := ../papermario/ver/us/build/$(TARGET).elf
 Z64_IN := $(BUILD_DIR)/$(TARGET)_in.z64
 Z64_IN_OBJ := $(Z64_IN:.z64=.o)
 
@@ -34,15 +35,20 @@ A_OBJS := $(addprefix $(BUILD_DIR)/, $(A_SRCS:.s=.o))
 OBJS := $(C_OBJS) $(A_OBJS) $(Z64_IN_OBJ)
 
 # Flags
-CFLAGS      := -c -mabi=32 -ffreestanding -mfix4300 -G 0 -fno-zero-initialized-in-bss -Wall -Wextra -Wpedantic
-CPPFLAGS    := -Iinclude -I../../papermario_clean/include -I../../papermario_clean/ver/us/build/include -DF3DEX_GBI_2 -D_LANGUAGE_C
-OPTFLAGS    := -Os
-ASFLAGS     := -c -x assembler-with-cpp -mabi=32 -ffreestanding -mfix4300 -G 0 -O -Iinclude
+CFLAGS      := -c -ffreestanding -mfix4300 -G 0 -Wall
+CPPFLAGS    := -Iinclude -I../papermario/include -I../papermario/ver/us/build/include -DF3DEX_GBI_2 -D_LANGUAGE_C
+OPTFLAGS    :=
+ASFLAGS     := -EB -march=vr4300 -mtune=vr4300 -Iinclude
 LD_SCRIPT   := $(TARGET).ld
 LDFLAGS     := -T $(BUILD_DIR)/$(LD_SCRIPT) -mips3 --accept-unknown-input-arch --no-check-sections
 CPP_LDFLAGS := -P -Wno-trigraphs -DBUILD_DIR=$(BUILD_DIR) -Umips -DBASEROM=$(Z64_IN_OBJ)
 BINOFLAGS   := -I binary -O elf32-big
 Z64OFLAGS   := -O binary
+
+# mips-linux-gnu toolchain specifics
+ifeq ($(CROSS),mips-linux-gnu-)
+CFLAGS      += -mfix4300 -mhard-float -fno-common -fno-PIC -mno-abicalls -fno-inline-functions -ffreestanding
+endif
 
 # Rules
 all: $(Z64)

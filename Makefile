@@ -10,15 +10,19 @@ BUILD_SRC_DIRS := $(addprefix $(BUILD_DIR)/,$(SRC_DIRS))
 # Tools
 CROSS := mips-linux-gnu-
 
-#CC      := $(CROSS)gcc
 CC      := ../papermario/tools/build/cc/gcc/gcc -B ../papermario/tools/build/cc/gcc/
 AS      := $(CROSS)as
 LD      := $(CROSS)ld
-CPP     := cpp-11
 OBJCOPY := $(CROSS)objcopy
 MKDIR   := mkdir -p
 RMDIR   := rm -rf
 CKSUM   := tools/n64crc
+
+ifeq ($(shell uname -s),Darwin)
+CPP     := cpp-11
+else
+CPP     := cpp
+endif
 
 # Inputs/outputs
 ELF := $(BUILD_DIR)/$(TARGET).elf

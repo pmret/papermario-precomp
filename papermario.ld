@@ -68,10 +68,18 @@ SECTIONS
         BUILD_DIR/src/custom/drawing.o(.text);
         BUILD_DIR/src/custom/usb.o(.text);
         BUILD_DIR/src/custom/debug.o(.text);
+        BUILD_DIR/src/custom/patch.o(.text);
+        BUILD_DIR/src/custom/callback.o(.text);
+        BUILD_DIR/load_mods.o(.text);
+        MODS_TEXT
+
         BUILD_DIR/src/custom/init.o(.*data*);
         BUILD_DIR/src/custom/drawing.o(.*data*);
         BUILD_DIR/src/custom/usb.o(.*data*);
         BUILD_DIR/src/custom/debug.o(.*data*);
+        BUILD_DIR/src/custom/patch.o(.*data*);
+        BUILD_DIR/src/custom/callback.o(.*data*);
+        MODS_DATA
     }
     END_SEG(custom)
     BEGIN_NOLOAD(custom)
@@ -80,6 +88,8 @@ SECTIONS
         BUILD_DIR/src/custom/drawing.o(.bss);
         BUILD_DIR/src/custom/usb.o(.bss);
         BUILD_DIR/src/custom/debug.o(.bss);
+        BUILD_DIR/src/custom/callback.o(.bss);
+        MODS_BSS
     }
     END_NOLOAD(custom)
 

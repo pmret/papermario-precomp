@@ -12,7 +12,8 @@
             },
             "includePath": [
                 "${workspaceFolder}/include",
-                "${workspaceFolder}/../papermario/include"
+                "${workspaceFolder}/../papermario/include",
+                "${workspaceFolder}/../papermario/ver/us/build/include"
             ],
             "defines": [
                 "F3DEX_GBI_2",

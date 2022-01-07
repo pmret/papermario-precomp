@@ -41,7 +41,7 @@ OBJS := $(C_OBJS) $(A_OBJS) $(Z64_IN_OBJ)
 # Flags
 CFLAGS      := -c -ffreestanding -mfix4300 -G 0 -Wall
 CPPFLAGS    := -Iinclude -I../papermario/include -I../papermario/ver/us/build/include -DF3DEX_GBI_2 -D_LANGUAGE_C
-OPTFLAGS    :=
+OPTFLAGS    := -ggdb
 ASFLAGS     := -EB -march=vr4300 -mtune=vr4300 -Iinclude
 LD_SCRIPT   := $(TARGET).ld
 LDFLAGS     := -T $(BUILD_DIR)/$(LD_SCRIPT) -mips3 --accept-unknown-input-arch --no-check-sections
@@ -91,4 +91,3 @@ clean:
 .PHONY: all clean
 
 print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
-

@@ -8,7 +8,7 @@
 .word 0x00000000       /* Checksum 2 */
 .word 0x00000000       /* Unknown 1 */
 .word 0x00000000       /* Unknown 2 */
-.ascii "PAPER MARIO PRECOMP " /* Internal name */
+.ascii "PAPER MARIO         " /* Internal name */
 .word 0x00000000       /* Unknown 3 */
 .word 0x0000004E       /* Cartridge */
 .ascii "MQ"            /* Cartridge ID */

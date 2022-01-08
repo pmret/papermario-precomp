@@ -36,6 +36,7 @@ C_SRCS := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
 C_OBJS := $(addprefix $(BUILD_DIR)/, $(C_SRCS:.c=.o)) $(BUILD_DIR)/load_mods.o
 A_SRCS := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.s))
 A_OBJS := $(addprefix $(BUILD_DIR)/, $(A_SRCS:.s=.o))
+MSGS   :=
 
 MOD_OBJS :=
 include $(foreach mod,$(MODS),mods/$(mod)/Makefile)
@@ -64,8 +65,8 @@ all: $(Z64)
 $(BUILD_DIR) $(BUILD_SRC_DIRS) :
 	$(MKDIR) $@
 
-$(BUILD_DIR)/%.o : %.c | $(BUILD_SRC_DIRS)
-	$(CC) $(CPPFLAGS) $(CFLAGS) $(OPTFLAGS) $< -o $@
+$(BUILD_DIR)/%.o : %.c $(MSGS) | $(BUILD_SRC_DIRS)
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(OPTFLAGS) -I$(BUILD_DIR)/$(shell dirname $*.c) $*.c -o $@
 
 $(BUILD_DIR)/%.o : %.s | $(BUILD_SRC_DIRS)
 	$(AS) $(ASFLAGS) $< -o $@
@@ -94,6 +95,9 @@ $(BUILD_DIR)/load_mods.c: tools/make_load_mods.py
 
 $(BUILD_DIR)/load_mods.o: $(BUILD_DIR)/load_mods.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(OPTFLAGS) $< -o $@
+
+$(BUILD_DIR)/%.msg.c: %.msg
+	python3 ../papermario/tools/build/msg/parse_compile.py $< $@ --c
 
 clean:
 	$(RMDIR) $(BUILD_DIR)

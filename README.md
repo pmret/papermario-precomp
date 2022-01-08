@@ -21,4 +21,4 @@ Mods can be placed in the `mods/` directory. Mods can use the [papercut.h](inclu
 
 An example mod, [hello_world](mods/hello_world/), is included in this repo. To build the game with it, use `make MODS="hello_world"`.
 
-To load multiple mods, separate them with spaces: `make MODS="mod_one mod_two"`.
+To load multiple mods, separate them with spaces: `make clean && make MODS="mod_one mod_two"`.
